@@ -7,14 +7,11 @@ services:
 
 jobs:
   include:
-    - stage: build docker image
+    - stage: build & push docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
       - docker build -t travis-ci-api .
       - docker images
-
-    - stage: push docker image
-      script:
       - docker tag travis-ci-api  $DOCKER_USERNAME/app-api
       - docker push $DOCKER_USERNAME/app-api
           
