@@ -1,0 +1,14 @@
+sudo: true
+dist: trusty
+
+jobs:
+  include:
+    - stage: build docker image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build -t travis-ci-api .
+      - docker images
+
+    - stage: push docker image
+      - docker tag travis-ci-api  $DOCKER_USERNAME/app-api
+      - docker push $DOCKER_USERNAME/app-api
