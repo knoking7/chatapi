@@ -16,5 +16,4 @@ jobs:
     - stage: push docker image
       - docker tag travis-ci-api  $DOCKER_USERNAME/app-api
       - docker push $DOCKER_USERNAME/app-api
-      
-      
+          
