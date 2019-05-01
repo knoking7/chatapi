@@ -1,0 +1,117 @@
+{
+  "swagger": "2.0",
+  "info": {
+      "title": "chat Swagger-based API",
+      "description": "chat Swagger-based API",
+      "termsOfService": "",
+      "contact":{
+        "name": "Michael ILYASH",
+        "email": "mikeleilyash@gmail.com"
+      },
+      "license": {
+        "name": "",
+        "url": ""
+      },
+      "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "chat Swagger-based API",
+      "description": "my api description"
+    }
+  ],   
+  "paths": {
+      "/api/messages": {
+          "post": {
+              "tags": ["post new message"],
+              "summary": "Post new message in chat",
+              "description": "Stores a messege definition into chat and returns a valid JSON representation of the document",
+              "produces": ["application/json", "text/plain"],                                   	   
+              "responses": {
+                  "200": {"description": "messege is successfully added",
+                          "schema": {
+                              "$ref": "#/definitions/messegeBody.description"
+                          }
+                  },
+                  "500": {"description": "Internal server error"}
+              },                                  	
+              "parameters": [
+                  {
+                      "name": "description",
+                      "in": "path",
+                      "type": "string",
+                      "required": true,
+                      "description": "A messege description"                                   
+                  },
+                  {
+                    "name": "email",
+                    "in": "path",
+                    "type": "string",
+                    "required": true,
+                    "description": "A messege description"                                   
+                  },
+                  {
+                      "name": "messegeBody",
+                      "in": "body",
+                      "schema": {
+                          "$ref": "#/definitions/messegeBody"
+                      },
+                      "description": "A messege definition"
+                  },
+                  {
+                      "name": "Accept",
+                      "in": "header",
+                      "description": "Format of the returned document",
+                      "required": false,
+                      "default": "application/json",
+                      "type": "string",
+                      "enum": ["application/json", "text/plain"]
+                  }
+              ]
+          }
+      },
+      "/api/messages/single/{id}": {
+        "get": {
+          "tags": ["get one message"],
+          "summary": "get one message with chat"
+        },
+        "put": {
+          "tags": ["update one message"],
+          "summary": "update one message on chat"
+        },
+        "delete": {
+          "tags": ["delete one message"],
+          "summary": "delete one message on chat"
+        }
+      },
+      "/api/messages/list/{page}": {
+        "get": {
+          "tags": ["get one page list message(10 max on one page)"],
+          "summary": "get one page with list message"
+        }
+      }
+  },
+"definitions": {
+      "messegeBody": {
+          "type": "object",
+          "description": "The properties of a messege",
+          "properties": {
+              "id": "string",
+              "description": {
+                "type": "string",
+                "example": "Я иду сегодня в кино"                 
+              },
+              "email": {
+                  "type": "string",
+                  "example": "pa@meta.ua"
+              },
+              "createDate": {
+                "type": "Data"
+              },
+              "updatedDate": {
+                "type": "Data"
+              }
+          }
+      }
+  }
+}
